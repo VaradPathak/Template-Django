@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+{% load staticfiles %}
+<link href="{% static "css/bootstrap.min.css"%}" rel="stylesheet"
+	media="screen">
+<!-- Custom styles for this template -->
+<link href="{% static "css/main.css"%}" rel="stylesheet" media="screen">
+<link href="{% static "css/font-awesome.min.css"%}" rel="stylesheet"
+	media="screen">
+
+<link rel="shortcut icon" type="image/x-icon" href="{% static "img/favicon.ico"%}" />
+<title>Login</title>
+</head>
+<body>
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">My App</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="spacer"></div> 
+	
+	{% if error %}
+	<div class="row">
+		<div
+			class="alert alert-dismissable alert-danger col-lg-5 col-lg-offset-1">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-hidden="true">&times;</button>
+			<strong>Error!</strong> {{error}}
+		</div>
+		<div class="col-lg-6"></div>
+	</div>
+	{% endif %}
+
+	<h3>Sign In:</h3>
+	<form class="form-inline" role="form" method="post" id="SignIn"
+		name="SignIn" action="signin">
+		{% csrf_token %}
+		<div class="row">
+			<div class="form-group col-lg-2  col-lg-offset-1">
+				<input type="email" class="form-control" name="signIn_email"
+					id="signIn_email" required="required" placeholder="Enter email">
+			</div>
+			<div class="form-group col-lg-2">
+				<input type="password" class="form-control" id="signIn_password"
+					name="signIn_password" placeholder="Password" required="required">
+			</div>
+			<div class="form-group col-lg-2">
+				<button type="submit" class="btn btn-default">Sign in</button>
+			</div>
+			<div class="col-lg-5"></div>
+		</div>
+	</form>
+	<h3>Or, Signup here:</h3>
+	<form class="form-horizontal" id="signup" name="signup" action="signup"
+		method="post">
+		{% csrf_token %}
+		<div class="form-group">
+			<label for="signup_name" class="col-lg-2 control-label">Name:</label>
+			<div class="col-lg-2">
+				<input type="text" class="form-control" name="signup_first_name"
+					value="" id="signup_first_name" required="required"
+					placeholder="First Name" />
+			</div>
+			<div class="col-lg-2">
+				<input type="text" class="form-control" name="signup_last_name"
+					value="" id="signup_last_name" required="required"
+					placeholder="Last Name" />
+			</div>
+			<div class="col-lg-6"></div>
+		</div>
+		<div class="form-group">
+			<label for="signup_email" class="col-lg-2 control-label">Email:</label>
+			<div class="col-lg-4">
+				<input type="email" name="signup_email" class="form-control"
+					value="" id="signup_email" required="required" />
+			</div>
+			<div class="col-lg-6"></div>
+		</div>
+		<div class="form-group">
+			<label for="signup_password" class="col-lg-2 control-label">Password:</label>
+			<div class="col-lg-4">
+				<input type="password" class="form-control" name="signup_password"
+					id="signup_password" pattern="^((?=.*(\d|\W))(?=.*[a-zA-Z]).{8,})$"
+					required="required" />
+			</div>
+			<div class="col-lg-6"></div>
+		</div>
+		<div class="form-group">
+			<label for="signup_confirmPassword" class="col-lg-2 control-label">Confirm
+				Password:</label>
+			<div class="col-lg-4">
+				<input type="password" name="signup_confirmPassword"
+					class="form-control" id="signup_confirmPassword"
+					pattern="^((?=.*(\d|\W))(?=.*[a-zA-Z]).{8,})$" required="required" />
+			</div>
+			<div class="col-lg-6"></div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-offset-2 col-lg-2">
+				<button type="submit" class="btn btn-default" id="signup_button"
+					value="Submit">Signup</button>
+			</div>
+			<div class="col-lg-8"></div>
+		</div>
+	</form>
+
+	<div>
+		<ul>
+			<li><a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a></li>
+			<li><a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a></li>
+			<li><a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a></li>
+		</ul>
+	</div>
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="{% static "js/bootstrap.min.js"%}"></script>
+</body>
+</html>
