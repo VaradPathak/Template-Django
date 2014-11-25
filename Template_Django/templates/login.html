@@ -16,6 +16,33 @@
 <title>Login</title>
 </head>
 <body>
+
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&status=0&appId=851665504885759&version=v2.0";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+	
+	<script>
+	  window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '851665504885759',
+	      xfbml      : true,
+	      version    : 'v2.2'
+	    });
+	  };
+	
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "//connect.facebook.net/en_US/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	</script>
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -112,7 +139,9 @@
 		</div>
 	</form>
 
-	<div>
+	<!-- <div style="border-left:1px solid gray; margin-left:800px; margin-top: -300px"> -->
+	<div class="col-lg-7"></div>
+	<div class="col-lg-5 collapse in" style="border-left:1px solid gray; margin-top: -300px;">
 		<ul>
 			<li><a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a></li>
 			<li><a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a></li>

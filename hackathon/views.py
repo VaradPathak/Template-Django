@@ -24,6 +24,9 @@ def signup(request):
 
 
 def signin(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect("/home", {'success': 'Successfully LoggedIn.'})
+    
     if 'signIn_email' in request.POST:
         email = request.POST['signIn_email']
         password = request.POST['signIn_password']
@@ -32,7 +35,7 @@ def signin(request):
             # Correct password, and the user is marked "active"
             auth.login(request, user)
             # Redirect to a success page.
-            return HttpResponseRedirect("/home")
+            return HttpResponseRedirect("/home", {'success': 'Successfully LoggedIn.'})
         else:
             # Show an error page
             return render(request, 'login.html', {'error': 'Invalid user try signup!!'})
@@ -44,10 +47,17 @@ def home(request):
     if request.user.is_authenticated():
         return render(request, 'home.html', {'name': request.user.first_name})
     else:
-        return render(request, 'home.html', {'name': 'Anonymous'})
+        # Show an error page
+        return HttpResponseRedirect("/signin", {'error': 'Invalid user please Signin!!'})
 
 
 def logout(request):
     auth.logout(request)
     # Redirect to a success page.
-    return HttpResponseRedirect("/loggedout")
+    return render(request, 'logout.html', {'success': 'You have been successfully logged out!!'})
+
+def profile(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect("/home", {'success': 'Successfully LoggedIn.'})
+    else:
+        return render(request, 'login.html')

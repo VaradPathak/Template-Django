@@ -15,16 +15,75 @@
 <script src="{% static "js/snap.svg-min.js"%}"></script>
 </head>
 <body>
+	{% csrf_token %}
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&status=0&appId=851665504885759&version=v2.0";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+	
+	<script>
+	  window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '851665504885759',
+	      xfbml      : true,
+	      version    : 'v2.2'
+	    });
+	  };
+	
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "//connect.facebook.net/en_US/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	</script>
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/">My App</a>
+				<form class="form-inline" role="form" method="post" id="LogOut" name="SignIn" action="logout">
+					{% csrf_token %}
+					<div class="row">
+						<div class="form-group col-lg-2" style="float: right;">
+							<button type="submit" class="btn-small btn-default">Logout</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
 
 	<div class="spacer"></div>
+	
+	{% if error %}
+	<div class="row">
+		<div
+			class="alert alert-dismissable alert-danger col-lg-5 col-lg-offset-1">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-hidden="true">&times;</button>
+			<strong>Error!</strong> {{error}}
+		</div>
+		<div class="col-lg-6"></div>
+	</div>
+	{% endif %}
+	
+	{% if success %}
+	<div class="row">
+		<div
+			class="alert alert-dismissable alert-success col-lg-5 col-lg-offset-1">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-hidden="true">&times;</button>
+			<strong>Awesome!</strong> {{success}}
+		</div>
+		<div class="col-lg-6"></div>
+	</div>
+	{% endif %}
 
 	<div class="menu-wrap">
 		<nav class="menu">
@@ -61,10 +120,8 @@
 				</div>
 				{% endif %} {% if error %}
 				<div class="row">
-					<div
-						class="alert alert-dismissable alert-danger col-lg-5 col-lg-offset-1">
-						<button type="button" class="close" data-dismiss="alert"
-							aria-hidden="true">&times;</button>
+					<div class="alert alert-dismissable alert-danger col-lg-5 col-lg-offset-1">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 						<strong>Error!</strong> {{error}}
 					</div>
 					<div class="col-lg-6"></div>
@@ -72,6 +129,12 @@
 				{% endif %} <br /> <br />
 				<h1>Welcome, {{name}}!</h1>
 				<p>Lot of Random content. asdf</p>
+				<div
+				  class="fb-like"
+				  data-share="true"
+				  data-width="450"
+				  data-show-faces="true">
+				</div>
 			</div>
 		</div>
 	</div>
