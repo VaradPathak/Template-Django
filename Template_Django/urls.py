@@ -1,8 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from Template_Django.views import index
-from hackathon.views import signin, signup, logout, home, profile
+from Template_Django.views import index, signin, signup, logout, home, profile
 
 admin.autodiscover()
 

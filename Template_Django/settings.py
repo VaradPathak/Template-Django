@@ -39,7 +39,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.redirects',
     'social.apps.django_app.default',
-    'hackathon',
 )
 
 SITE_ID = 1
