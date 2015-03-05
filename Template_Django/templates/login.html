@@ -137,7 +137,7 @@
 
 	<!-- <div style="border-left:1px solid gray; margin-left:800px; margin-top: -300px"> -->
 	<div class="col-lg-7"></div>
-	<div class="col-lg-5 collapse in" style="border-left:1px solid gray; margin-top: -300px;">
+	<div class="col-lg-5 collapse in" style="border-left:1px solid gray; margin-top: -300px;" media="(max-width:600px)">
 		<ul>
 			<li><a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a></li>
 			<li><a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a></li>
